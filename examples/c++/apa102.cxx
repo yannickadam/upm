@@ -34,7 +34,7 @@ main(int argc, char **argv)
 {
 //! [Interesting]
 	// Instantiate a strip of 30 LEDs on SPI bus 0
-	upm::APA102* ledStrip = new upm::APA102(30, 0);
+	upm::APA102* ledStrip = new upm::APA102(800, 0);
 
 	// Set all LEDs to Red
 	ledStrip->setAllLeds(31, 255, 0, 0);

@@ -117,6 +117,18 @@ APA102::setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t brightness, uint8_t 
 }
 
 void
+APA102::setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t *colors) {
+
+	uint16_t s_idx = (startIdx+1) * 4;
+	memcpy( &m_leds[s_idx], colors, (endIdx-startIdx+1)*4);
+
+	if( !m_batchMode ) {
+		pushState();
+	}
+
+}
+
+void
 APA102::pushState (void) {
     CSOn();
 	m_spi->write(m_leds, m_frameLength);

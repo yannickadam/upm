@@ -54,6 +54,7 @@ namespace upm {
    */
   class APA102 {
   public:
+
     /**
      * Instantiates a new APA102 LED Strip
      *
@@ -61,7 +62,7 @@ namespace upm {
      * @param spiBus 	SPI Bus number
      * @param batchMode (optional) Immediatly write to SPI (false, default) or wait for a pushState call (true)
      * @param csn 		(optional) Chip Select Pin
-     */
+     */ 
     APA102(uint16_t ledCount, uint8_t spiBus, bool batchMode = false, int8_t csn = -1);
 
     /**
@@ -70,7 +71,7 @@ namespace upm {
     ~APA102();
 
     /**
-     * Change the settings for a single led
+     * Change the color for a single led
      *
 	 * @param ledIdx		Index of the LED in the strip (0 based)
 	 * @param brightness	Brightness value (0-31)	
@@ -81,7 +82,7 @@ namespace upm {
     void setLed(uint16_t ledIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
     
     /**
-     * Change the settings for all leds
+     * Change the color for all leds
 	 *
 	 * @param brightness	Brightness value (0-31)
 	 * @param r				Red component (0-255)
@@ -91,7 +92,7 @@ namespace upm {
     void setAllLeds(uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
     /**
-     * Change the settings for a batch of leds
+     * Change the color for a range of leds
 	 *
 	 * @param startIdx		Start index of the range of LEDs in the strip (0 based)
 	 * @param endIdx		End index of the range of LEDs in the strip (0 based)
@@ -101,6 +102,18 @@ namespace upm {
 	 * @param b				Blue component (0-255)
      */
     void setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
+
+	/**
+	 * (Advanced) Manually control the colors of a range of LEDS
+	 * Best used to maximize performance
+	 *
+	 * @param startIdx		Start index of the range of LEDs to update (0 based)
+	 * @param endIdx		End index of the range of LEDs to update (0 based)
+	 * @param colors		Pointer to an array of bytes. Each color is described as the following:
+	 *						B1: Brightness (224-255) B2: Blue (0-255) B3: Green (0-255) B4: Red (0-255)
+	 *						No check done on the boundaries 
+	 */
+	void setLeds(uint16_t startIdx, uint16_t endIdx, uint8_t *colors);
 
     /**
      * Outputs the current LED data to the SPI bus
